@@ -17,13 +17,17 @@ import React from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { python } from "@codemirror/lang-python";
+import { Button } from "@/components/ui/button";
 
 function App() {
 	const [value, setValue] = React.useState("print('Hello, World!')");
 	const onChange = React.useCallback((val: string) => {
-		console.log("val:", val);
 		setValue(val);
 	}, []);
+
+	const submitCode = () => {
+		// TODO: Call the API to submit the code
+	};
 
 	const fixedHeightEditor = EditorView.theme({
 		"&": { height: "100%" },
@@ -55,6 +59,10 @@ function App() {
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
+					<div className="flex-1"></div>
+					<Button size={"sm"} variant={"success"} onClick={submitCode}>
+						Submit
+					</Button>
 				</header>
 				<CodeMirror
 					value={value}
