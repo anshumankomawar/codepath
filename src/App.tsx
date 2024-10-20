@@ -16,17 +16,20 @@ import {
 import React from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
-import { javascript } from "@codemirror/lang-javascript";
+import { python } from "@codemirror/lang-python";
 
 function App() {
-	const [value, setValue] = React.useState("console.log('hello world!');");
-	const onChange = React.useCallback((val, viewUpdate) => {
+	const [value, setValue] = React.useState("print('Hello, World!')");
+	const onChange = React.useCallback((val: string) => {
 		console.log("val:", val);
 		setValue(val);
 	}, []);
 
 	const fixedHeightEditor = EditorView.theme({
 		"&": { height: "100%" },
+		"&.cm-editor.cm-focused": {
+			outline: "none",
+		},
 		".cm-scroller": { overflow: "auto", "z-index": 0 },
 	});
 
@@ -34,7 +37,7 @@ function App() {
 		<SidebarProvider>
 			<AppSidebar />
 			<SidebarInset>
-				<header className="flex h-16 shrink-0 z-50 w-full absolute bg-white items-center gap-2 border-b px-4">
+				<header className="flex h-16 shrink-0 w-full bg-white items-center gap-2 border-b px-4">
 					<SidebarTrigger className="-ml-1" />
 					<Separator orientation="vertical" className="mr-2 h-4" />
 					<Breadcrumb>
@@ -55,9 +58,12 @@ function App() {
 				</header>
 				<CodeMirror
 					value={value}
+					basicSetup={{
+						autocompletion: false,
+					}}
 					className="h-full fixed top-16 w-full overscroll-contain"
 					theme={fixedHeightEditor}
-					extensions={[javascript({ jsx: true })]}
+					extensions={[python()]}
 					onChange={onChange}
 				/>
 			</SidebarInset>
