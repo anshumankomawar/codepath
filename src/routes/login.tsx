@@ -4,9 +4,9 @@ import { LoginForm } from "@/components/login-form";
 const fallback = "/dashboard" as const;
 
 export const Route = createFileRoute("/login")({
-	beforeLoad: ({ context, search }) => {
+	beforeLoad: ({ context }) => {
 		if (context.auth.isAuthenticated) {
-			throw redirect({ to: search.redirect || fallback });
+			throw redirect({ to: fallback });
 		}
 	},
 	component: () => (
