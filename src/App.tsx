@@ -34,14 +34,14 @@ function App() {
 		"&.cm-editor.cm-focused": {
 			outline: "none",
 		},
-		".cm-scroller": { overflow: "auto", "z-index": 0 },
+		".cm-scroller": { overflow: "auto" },
 	});
 
 	return (
 		<SidebarProvider>
 			<AppSidebar />
 			<SidebarInset>
-				<header className="flex h-16 shrink-0 w-full bg-white items-center gap-2 border-b px-4">
+				<header className="flex h-12 shrink-0 w-full bg-white items-center gap-2 border-b px-4">
 					<SidebarTrigger className="-ml-1" />
 					<Separator orientation="vertical" className="mr-2 h-4" />
 					<Breadcrumb>
@@ -69,7 +69,7 @@ function App() {
 					basicSetup={{
 						autocompletion: false,
 					}}
-					className="h-full fixed top-16 w-full overscroll-contain"
+					className="h-full fixed top-12 w-full overscroll-contain"
 					theme={fixedHeightEditor}
 					extensions={[python()]}
 					onChange={onChange}
