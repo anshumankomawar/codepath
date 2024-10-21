@@ -19,7 +19,7 @@ import { EditorView } from "@codemirror/view";
 import { python } from "@codemirror/lang-python";
 import { Button } from "@/components/ui/button";
 
-function App() {
+export default function Dashboard() {
 	const [value, setValue] = React.useState("print('Hello, World!')");
 	const onChange = React.useCallback((val: string) => {
 		setValue(val);
@@ -78,5 +78,3 @@ function App() {
 		</SidebarProvider>
 	);
 }
-
-export default App;

@@ -1,15 +1,10 @@
-import * as React from "react";
 import {
-	Calendar,
-	Home,
-	Inbox,
-	Search,
-	Settings,
 	ChevronRight,
 	File,
 	Folder,
+	HomeIcon,
+	SettingsIcon,
 } from "lucide-react";
-
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -28,20 +23,11 @@ import {
 	SidebarMenuSub,
 	SidebarRail,
 } from "@/components/ui/sidebar";
+import { useRouter } from "@tanstack/react-router";
+import { useAuth } from "@/auth";
+import { sleep } from "@/lib/utils";
 
 const data = {
-	standard: [
-		{
-			title: "Home",
-			url: "#",
-			icon: Home,
-		},
-		{
-			title: "Settings",
-			url: "#",
-			icon: Settings,
-		},
-	],
 	changes: [
 		{
 			file: "README.md",
@@ -77,6 +63,9 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+	const auth = useAuth();
+	const router = useRouter();
+
 	return (
 		<Sidebar {...props}>
 			<SidebarContent>
@@ -84,16 +73,33 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					<SidebarGroupLabel>Application</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							{data.standard.map((item) => (
-								<SidebarMenuItem key={item.title}>
-									<SidebarMenuButton asChild>
-										<a href={item.url}>
-											<item.icon />
-											<span>{item.title}</span>
-										</a>
-									</SidebarMenuButton>
-								</SidebarMenuItem>
-							))}
+							<SidebarMenuItem key={"Home"}>
+								<SidebarMenuButton asChild>
+									<a href={"/dashboard"}>
+										<HomeIcon />
+										<span>{"Home"}</span>
+									</a>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+							<SidebarMenuItem
+								key={"Settings"}
+								className="hover:cursor-pointer"
+								onClick={async () => {
+									await auth.logout();
+									await router.invalidate();
+
+									await sleep(1);
+
+									await router.navigate({ to: "/login" });
+								}}
+							>
+								<SidebarMenuButton asChild>
+									<a>
+										<SettingsIcon />
+										<span>{"Settings"}</span>
+									</a>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
