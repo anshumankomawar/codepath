@@ -119,9 +119,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
-				<SidebarGroup className="overflow-y-hidden">
+				<SidebarGroup>
 					<SidebarGroupLabel>Files</SidebarGroupLabel>
-					<SidebarGroupContent className="overflow-scroll">
+					<SidebarGroupContent>
 						<SidebarMenu>
 							{data.tree.map((item, index) => (
 								<Tree key={index} item={item} />
