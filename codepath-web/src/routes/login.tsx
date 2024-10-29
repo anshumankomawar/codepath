@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { LoginForm } from "@/components/login-form";
+import { LoginForm } from "@/components/login/login-form";
 
 const fallback = "/dashboard" as const;
 

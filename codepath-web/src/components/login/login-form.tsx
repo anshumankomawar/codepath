@@ -23,7 +23,6 @@ export function LoginForm() {
 	const [password, setPassword] = useState("");
 
 	async function handleLogin() {
-		console.log(auth);
 		await auth.login(email, password);
 		await router.invalidate();
 
