@@ -12,7 +12,6 @@ use http::{
     header::{AUTHORIZATION, CONTENT_TYPE},
     HeaderValue, Method,
 };
-use tower_cookies::CookieManagerLayer;
 use tower_http::cors::CorsLayer;
 use tracing::debug;
 
@@ -33,7 +32,6 @@ pub fn create_routes(ctx: Context) -> Router<()> {
     let protected_routes = Router::new()
         .route("/test", post(handler_404))
         .layer(map_response(main_response_mapper))
-        .layer(CookieManagerLayer::new())
         .route_layer(from_fn(middleware::jwt_authentication));
 
     Router::new()
